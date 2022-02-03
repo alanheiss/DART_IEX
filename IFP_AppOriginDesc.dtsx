@@ -1,0 +1,2370 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/31/2021 10:16:40 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="APSED5647"
+  DTS:CreatorName="MS\aheiss"
+  DTS:DTSID="{61274173-819C-4B66-A744-806DC85C30AE}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.166"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="IFP_AppOriginDesc"
+  DTS:PackageType="5"
+  DTS:VersionBuild="42"
+  DTS:VersionGUID="{7B1C26FE-B593-418A-A40E-CAF0211B219C}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[ODW]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{3FAA0715-2B3D-4BB8-856F-0575E8EFC1B6}"
+      DTS:ObjectName="ODW">
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Project::ODW_Server]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DBSED0985;Initial Catalog=ovations_dw;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[ODW_ADO]"
+      DTS:CreationName="ADO.NET:SQL"
+      DTS:DTSID="{4B1463B3-E857-4316-8090-C2D58586086A}"
+      DTS:ObjectName="ODW_ADO">
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Project::ODW_Server]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=DBSED0985;Initial Catalog=ovations_dw;Integrated Security=True;Application Name=SSIS-ICM_Member_Enroll_Data-{4B1463B3-E857-4316-8090-C2D58586086A}DBSED0985.ovations_dw1;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{ABB48808-6F13-41C6-9584-94AC45E869BD}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::vSourceFolder] + &quot;\\Archive_IFP_AppOriginDesc&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="vArchiveFolder">
+      <DTS:VariableValue
+        DTS:DataType="8">\\naselr001vn\umr_salesdistr_data\ETL\DART_IEX\Archive_IFP_AppOriginDesc</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{B5CE1A88-CC19-4A36-A141-60D08F95880C}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::vArchiveFolder] + &quot;\\&quot; + @[User::vFileName]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="vArchivePath">
+      <DTS:VariableValue
+        DTS:DataType="8">\\naselr001vn\umr_salesdistr_data\ETL\DART_IEX\Archive_IFP_AppOriginDesc\IFP_APPLICATION_ORIGIN_DESC*.txt</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{7C16B2DD-63D8-4A37-A7B3-49034F3E6E26}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="vFileName">
+      <DTS:VariableValue
+        DTS:DataType="8">IFP_APPLICATION_ORIGIN_DESC*.txt</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{C34F79D4-39A3-496B-90FA-B8E0A78798A5}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::vSourceFolder] + &quot;\\&quot; + @[User::vFileName]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="vFilePath">
+      <DTS:VariableValue
+        DTS:DataType="8">\\naselr001vn\umr_salesdistr_data\ETL\DART_IEX\IFP_APPLICATION_ORIGIN_DESC*.txt</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{583AAAFD-609D-4E7B-BF12-BB8C6D5AE949}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="vSourceFolder">
+      <DTS:VariableValue
+        DTS:DataType="8">\\naselr001vn\umr_salesdistr_data\ETL\DART_IEX</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\FELC_Mktg_AppOriginDesc"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:Description="Foreach Loop Container"
+      DTS:DTSID="{5B1A167E-877A-4BFF-8E81-3A3F4E44DDA4}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="FELC_Mktg_AppOriginDesc">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="Microsoft.ForEachFileEnumerator"
+        DTS:DTSID="{01A22998-5E0A-4A25-A5DC-AC5DB8E5FE2D}"
+        DTS:ObjectName="{01A22998-5E0A-4A25-A5DC-AC5DB8E5FE2D}">
+        <DTS:ObjectData>
+          <ForEachFileEnumeratorProperties>
+            <FEFEProperty
+              Folder="\\naselr001vn\umr_salesdistr_data\ETL\DART_IEX" />
+            <FEFEProperty
+              FileSpec="IFP_APPLICATION_ORIGIN_DESC*.txt" />
+            <FEFEProperty
+              FileNameRetrievalType="1" />
+            <FEFEProperty
+              Recurse="0" />
+          </ForEachFileEnumeratorProperties>
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\FELC_Mktg_AppOriginDesc\Archive AppOriginDesc Files"
+          DTS:CreationName="ZappySys.CompressionTask"
+          DTS:Description="ZS Compression Task"
+          DTS:DTSID="{5694A700-7378-455D-A9D1-B119DD95BE7E}"
+          DTS:ExecutableType="ZappySys.CompressionTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Archive AppOriginDesc Files"
+          DTS:TaskContact="Compression Task; ZappySys LLC (c) All Rights Reserved; SSIS PowerPack; http://www.zappysys.com/support"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <CompressionTask
+              Action="CompressAsMulti"
+              SourcePathAccessMode="Variable"
+              SourcePathValue=""
+              SourcePathConnection=""
+              SourcePathVariable="User::vFilePath"
+              Recursive="False"
+              TargetPathAccessMode="Variable"
+              TargetPathValue=""
+              TargetPathConnection=""
+              TargetPathVariable="User::vArchivePath"
+              OverwriteAction="OverwriteAll"
+              ArchiveFormat="GZip"
+              CreateMissingTargetFolder="True"
+              EncryptionAlgorithm="None"
+              CompressionLevel="DefaultCompress"
+              CompressionMethod="Deflate"
+              Comment=""
+              ParallelThreads="4"
+              ExcludeRegXPattern=""
+              IncludeRegXPattern=""
+              TreatRegXForFullPath="True"
+              SortBy="Size"
+              SortDirection="Asc"
+              WhereClause=""
+              EnableSort="False"
+              MaxItems="0"
+              LogLevel="Normal"
+              PrefixTimestamp="False">
+              <Password
+                Sensitive="1"
+                Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA49xRt7jNN0KdDhm/ng9TgwAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAACH8+LEC+356NHTxC0UAP4BAAAAAASAAACgAAAAEAAAAFc4KaSYM/Gk1e/4ONqkmk8IAAAAYI8uDThblrIUAAAAdXWvdM78oJ6GPznkwRBRHRPVnm8</Password>
+            </CompressionTask>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\FELC_Mktg_AppOriginDesc\Derive App ID"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{1AD6D439-1C0F-4468-8FCC-FD2F30582F6F}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Derive App ID"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{3FAA0715-2B3D-4BB8-856F-0575E8EFC1B6}"
+              SQLTask:SqlStatementSource="UPDATE IEX.STG_IFP_AppOriginDesc&#xA;SET ApplicationID = CONCAT('CSP', CAST(MEME_CK as varchar(20)), CAST(EFFDATE as varchar(20)))&#xA;FROM IEX.STG_IFP_AppOriginDesc&#xA;WHERE ApplicationID IS NULL&#xA;GO&#xA;&#xA;-- Update Empty Strings to NULL&#xA;UPDATE IEX.STG_IFP_AppOriginDesc&#xA;SET Enrollment_Source = NULL&#xA;FROM IEX.STG_IFP_AppOriginDesc&#xA;WHERE LEN(Enrollment_Source) = 0&#xA;GO&#xA;&#xA;UPDATE IEX.STG_IFP_AppOriginDesc&#xA;SET Enrollment_Channel = NULL&#xA;FROM IEX.STG_IFP_AppOriginDesc&#xA;WHERE LEN(Enrollment_Channel) = 0&#xA;GO&#xA;&#xA;UPDATE IEX.STG_IFP_AppOriginDesc&#xA;SET Application_Origin_Desc = NULL&#xA;FROM IEX.STG_IFP_AppOriginDesc&#xA;WHERE LEN(Application_Origin_Desc) = 0&#xA;GO&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{F303699F-B1F6-4ED5-A1AC-5393394F5328}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="IFP_Application_Orgin_Desc"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File)"
+                  componentClassID="Microsoft.ManagedComponentHost"
+                  contactInfo="CSV Source (Web API or File); ZappySys LLC (c) All Rights Reserved; SSIS PowerPack; http://www.zappysys.com/support"
+                  description="The CSV source can be used to read data from CSV/TSV files, Web service or direct CSV String."
+                  name="CSV Source (Web API or File)"
+                  usesDispositions="true"
+                  version="6">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="LoggingMode determines how much information is logged during Package Execution. Set Logging mode to Debugging for maximum log."
+                      expressionType="Notify"
+                      name="LoggingMode"
+                      typeConverter="ZappySys.PowerPack.Common.LoggingMode">0</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="When you enable this property it will prefix timestamp before Log messages."
+                      expressionType="Notify"
+                      name="PrefixTimestamp">false</property>
+                    <property
+                      dataType="System.Null"
+                      expressionType="Notify"
+                      name="SelfRef"
+                      typeConverter="NOTBROWSABLE" />
+                    <property
+                      dataType="System.Boolean"
+                      description="Treat empty string as NULL for any numeric data types"
+                      expressionType="Notify"
+                      name="TreatBlankNumberAsNull">true</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Treat empty string as NULL for bool data types"
+                      expressionType="Notify"
+                      name="TreatBlankBoolAsNull">true</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Treat empty string as NULL for any date/time data types"
+                      expressionType="Notify"
+                      name="TreatBlankDateAsNull">true</property>
+                    <property
+                      dataType="System.String"
+                      description="Column delimiter for data you like to parse. To use custom delimiter enter 4-digit hex string starting with \x (e.g. you can enter \x0009 for Tab character). For multiple characters repeat group. e.g. \x00090009 if you need two tabs."
+                      expressionType="Notify"
+                      name="ColumnDelimiter">|</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Column delimiter for data you like to parse."
+                      expressionType="Notify"
+                      name="HasColumnHeaderRow">true</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Throw error if record has different number of columns than actual columns detected based on first row"
+                      expressionType="Notify"
+                      name="ThrowErrorOnColumnCountMismatch">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Throw error if no record found or file is blank"
+                      expressionType="Notify"
+                      name="ThrowErrorOnNoRecordFound">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Allow comment lines which can be skipped by parser. When comment line found row is skipped. See CommentCharacter to configure first character for commented line."
+                      expressionType="Notify"
+                      name="AllowComment">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Allow lines with comment. When comment line found row is skipped. See LineCommentCharacter property to configure first character for commented line."
+                      expressionType="Notify"
+                      name="CommentCharacter">#</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Total data rows you like to skip (after header row)"
+                      expressionType="Notify"
+                      name="SkipRows">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Total rows you like to skip before header row. If its header less file then skip initial N rows (before any data row)."
+                      expressionType="Notify"
+                      name="SkipHeaderCommentRows">0</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="When this option is enabled, blank lines are skipped."
+                      expressionType="Notify"
+                      name="IgnoreBlankLines">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="When this option is enabled, any row with empty values in all fields is skipped (e.g. , , , , )."
+                      expressionType="Notify"
+                      name="SkipEmptyRecords">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Trim column names if whitespace found before or after name"
+                      expressionType="Notify"
+                      name="TrimHeaders">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Trim value for each field if whitespace found before or after"
+                      expressionType="Notify"
+                      name="TrimFields">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Ignore quote character and consider it part of actual value"
+                      expressionType="Notify"
+                      name="IgnoreQuotes">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Quote character for quoted values."
+                      expressionType="Notify"
+                      name="QuoteCharacter">"</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Encoding of source file"
+                      expressionType="Notify"
+                      name="Encoding"
+                      typeConverter="ZappySys.Common.EncodingType">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Character set for text (e.g. utf-8 )"
+                      expressionType="Notify"
+                      name="CharacterSet"></property>
+                    <property
+                      dataType="System.String"
+                      description="Culture code (e.g. pt-BT). This helps to parse culture specific number formats (e.g. In some culture you may have comma rather than decimal points 0.1 can be 0,1)"
+                      expressionType="Notify"
+                      name="Culture"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Defines how to read the JSON file or direct string"
+                      expressionType="Notify"
+                      name="AccessMode"
+                      typeConverter="ZappySys.Common.Ssis.FileValueAccessMode">3</property>
+                    <property
+                      dataType="System.String"
+                      description="Defines how to read the JSON file or direct string"
+                      expressionType="Notify"
+                      name="DirectValue"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.String"
+                      description="Variable name which holds JSON string"
+                      expressionType="Notify"
+                      name="ValueVariable"
+                      typeConverter="ZappySys.PowerPack.Converters.VariableEditor,ZappySys.PowerPack110.UI,Version=1.0.0.0,Culture=neutral,PublicKeyToken=1903265a93eae502"></property>
+                    <property
+                      dataType="System.String"
+                      description="Variable name which holds data file path or url"
+                      expressionType="Notify"
+                      name="PathVariable"
+                      typeConverter="ZappySys.PowerPack.Converters.VariableEditor,ZappySys.PowerPack110.UI,Version=1.0.0.0,Culture=neutral,PublicKeyToken=1903265a93eae502">User::vFilePath</property>
+                    <property
+                      dataType="System.String"
+                      description="JSON file file path (e.g. c:\data\myfile.json) or pattern to process multiple files (e.g. c:\data\*.json)"
+                      expressionType="Notify"
+                      name="DirectPath"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">\\naselr001vn\umr_salesdistr_data\ETL\DART_IEX\Member_Enrollment_Data16303314004083000.txt</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Include files from sub folders too."
+                      expressionType="Notify"
+                      name="Recursive">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="By default process stops with error if specified local file is not found. Set this property to true if you wish to continue rather than throwing file not found error."
+                      expressionType="Notify"
+                      name="ContinueOnFileNotFoundError">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Set this if you want to set custom Http headers. You may use variable anywhere in the header value using syntax {{User::YourVarName}}. Syntax of Header key value pair is : &amp;lt;request&amp;gt;&amp;lt;header&amp;gt;&amp;lt;name&amp;gt;x-myheader-1&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;AAA&amp;lt;/value&amp;gt;&amp;lt;/header&amp;gt; &amp;lt;header&amp;gt;&amp;lt;name&amp;gt;x-myheader-2&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;BBB&amp;lt;/value&amp;gt;&amp;lt;/header&amp;gt;&amp;lt;/request&amp;gt;"
+                      expressionType="Notify"
+                      name="HttpHeaders">&lt;request&gt;&lt;header&gt;&lt;name&gt;Accept&lt;/name&gt;&lt;value&gt;*/*&lt;/value&gt;&lt;/header&gt;&lt;header&gt;&lt;name&gt;Cache-Control&lt;/name&gt;&lt;value&gt;no-cache&lt;/value&gt;&lt;/header&gt;&lt;/request&gt;</property>
+                    <property
+                      dataType="System.String"
+                      description="User defined data you wish to send along with your HTTP Request (e.g. Upload file data, Form POST data). Usually you have to set content-type of your data but if you select RequestMethod=POST then system will automatically set content-type=application/x-www-form-urlencoded."
+                      expressionType="Notify"
+                      name="HttpRequestData"></property>
+                    <property
+                      dataType="System.String"
+                      description="Http Web Request Method (e.g. POST, GET, PUT, LIST, DELETE...). Refer your API documentation if you are not sure which method you have to use."
+                      expressionType="Notify"
+                      name="HttpRequestMethod">GET</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies content type for data you wish to POST. If you select Default option then system default content type will be used (i.e. application/x-www-form-urlencoded). If you specify Content-Type header along with this option then header value takes precedence."
+                      expressionType="Notify"
+                      name="HttpRequestContentType"
+                      typeConverter="ZappySys.Common.Web.HttpRequestContentType">0</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Enable custom proxy settings (If this is not set then system default proxy will be used. To disable proxy totally uncheck this option and check DoNotUseDefaultProxy option if available)"
+                      expressionType="Notify"
+                      name="UseProxy">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Web URL of Proxy server (including port  if necessary). [e.g. http://myproxyserver:8080/]"
+                      expressionType="Notify"
+                      name="ProxyUrl"></property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Enable passing userid and password to proxy server"
+                      expressionType="Notify"
+                      name="UseProxyCreds">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Proxy username"
+                      expressionType="Notify"
+                      name="ProxyUserName"></property>
+                    <property
+                      dataType="System.String"
+                      description="Proxy password"
+                      expressionType="Notify"
+                      name="ProxyPassword"></property>
+                    <property
+                      dataType="System.String"
+                      description="If Service response support pagination using some sort of next url attribute then specify which attribute name in JSON Response string which holds next url. If no attribute found or its null then component will stop fetching next resultset. Example: $.pagingInfo.nextUrl"
+                      expressionType="Notify"
+                      name="NextUrlAttribute"></property>
+                    <property
+                      dataType="System.String"
+                      description="If Service response support pagination using some sort of prev/next url attribute then specify which previous link attribute name from JSON Response string which holds previous url."
+                      expressionType="Notify"
+                      name="PrevUrlAttribute"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies value for NextUrlAttribute or StopIndicatorAttribute which indicates last page to stop pagination. If you have specified StopIndicatorAttribute then you can use Regular expression rather than static value to indicate last page. To use regular expression value of this property must start with regex= prefix. Example : regex=FALSE|N  (assuming you set StopIndicatorAttribute to something like $.hasMore)"
+                      expressionType="Notify"
+                      name="NextUrlStopIndicator"></property>
+                    <property
+                      dataType="System.String"
+                      description="Attribute name or expression for attribute which can be used as stop indicator (e.g. hasmore --or-- $.pagination.hasmore). If this value is blank then NextUrlAttribute is used"
+                      expressionType="Notify"
+                      name="StopIndicatorAttribute"></property>
+                    <property
+                      dataType="System.String"
+                      description="If you want to include certain text (or parameters) at the end of Next url then specify this attribute (e.g. &amp;format=json). Another common usecase of this property is to supply pagination token to next Page URL. You can also use &lt;%nextlink%&gt; or  &lt;%nextlink_encoded%&gt; placeholder (e.g. &amp;cursor=&lt;%nextlink_encoded%&gt; )"
+                      expressionType="Notify"
+                      name="NextUrlSuffix"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="This property indicates total number of milliseconds you want to wait before sending next request. This option allows you to adjust how many API calls can be made within certain timeframe. If your API Service has no limit then set this option to zero"
+                      expressionType="Notify"
+                      name="NextUrlWait">0</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="If this option is true then component will continue without exception on 404 error (Url not found). This allows you to consume data gracefully."
+                      expressionType="Notify"
+                      name="ContinueOnUrlNotFoundError">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Continue when any type of exception occurs during http request"
+                      expressionType="Notify"
+                      name="ContineOnAnyError">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Continue on error when specified substring found in response"
+                      expressionType="Notify"
+                      name="ContineOnErrorForMessage">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Continue on error when specified status code returned from web server"
+                      expressionType="Notify"
+                      name="ContineOnErrorForStatusCode">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="When error occurs no data is returned. Use this option to get content eventhough error occurs. When this option is checked you can't use [continue on error when specific string found in response] option"
+                      expressionType="Notify"
+                      name="ConsumeResponseOnError">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Status code to match when error occurs and ContineOnErrorForStatusCode option is true. If Response status code matches to this code then task continues to run"
+                      expressionType="Notify"
+                      name="ErrorStatusCodeToMatch">404</property>
+                    <property
+                      dataType="System.String"
+                      description="Error substring to match when error occurs and ContineOnErrorForMessage option is true. If Response status code matches to this code then task continues to run"
+                      expressionType="Notify"
+                      name="ErrorSubstringToMatch"></property>
+                    <property
+                      dataType="System.String"
+                      description="Cookie Container can be used to maintain state between multiple web requests. Example: You can login to site like wordpress and then extract any private page content by simply passing authentication cookies using this variable."
+                      expressionType="Notify"
+                      name="CookieContainerVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Http request Timeout in seconds. Set this to 0 if you want to use system default value (i.e. 100 seconds)"
+                      expressionType="Notify"
+                      name="RequestTimeout">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies which security protocol is supported for HTTPS communication. Using this option you can enable legacy protocol or enforce to use latest version of security protocol (Note: TLS 1.2 is only supported in SSIS 2014 or Higher)."
+                      expressionType="Notify"
+                      name="SecurityProtocol"
+                      typeConverter="ZappySys.PowerPack.Common.HttpsSecurityProtocolType">0</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Enable support for gzip or deflate compression. When you check this option compressed response automatically de-compressed saving bandwidth. This option is only valid if web server supports compressed response stream. Check your API documentation for more information."
+                      expressionType="Notify"
+                      name="EnableCompressionSupport">true</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Ignore SSL certificate related errors. Example: if you getting SSL/TLS errors because of certificate expired or certificate is not from trusted authority or certificate is self-signed. By checking this option you will not get SSL/TLS error."
+                      expressionType="Notify"
+                      name="IgnoreCertificateErrors">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Allow unsecure ciphers/suites and curves for SSLS/TLS communication. Use this option to communicate with web servers which needs legacy / unsecured ciphers support. This option is only trigged when you change default SSL/TLS Version on advanced settings tab."
+                      expressionType="Notify"
+                      name="AllowUnsecureSuite">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Use connection to pass credentials for authentication (e.g. Use UserID/Password or Use OAuth Protocol for token based approach)"
+                      expressionType="Notify"
+                      name="UseConnection">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specified how you want to loop through multiple pages returned by REST API."
+                      expressionType="Notify"
+                      name="PagingMode"
+                      typeConverter="ZappySys.Common.RestApiPagingMode">0</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="If you wish to pass extracted pagination token or current page number in the body of next request then set this option to true. You can use [$pagetoken$] and [$pagetoken$] placeholders anywhere in the Body where you wish to insert extracted Page token. You must set encoded token you can use &lt;%nextlink_encoded%&gt; inside SuffixForNextUrl Property. If you dont use SuffixForNextUrl then raw nextLink or Token will be inserted inside the body. If you dont specify [$pagetoken$] placeholder in the body then NextPage Token will be appended at the end. NextPage Token is extracted by filter expression specified using property NextUrlSuffix"
+                      expressionType="Notify"
+                      name="EnablePageTokenForBody">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set this to true if you wish to specify different URL, Header, Body or Filter for first page and next page (i.e. Paginated response). Some APIs like Amazon MWS, NetSuite, Zuora) you may need to set this to true."
+                      expressionType="Notify"
+                      name="HasDifferentNextPageInfo">false</property>
+                    <property
+                      dataType="System.String"
+                      description="When HasDifferentNextPageInfo=true you can set this property to indicate first page and next page. You can specify different URL, Header, Body or Filter for first page and next page (i.e. Paginated response). Use [$tag$] as placeholder anywhere in the URL, Header, Body or Filter and at runtime system will replace it with correct value (first page or next page value). Syntax to specify placeholder for first page vs next page is like a connectionstring url=FirstPageValue|NextPageValue;header=FirstPageValue|NextPageValue;body=FirstPageValue|NextPageValue;filter=FirstPageValue|NextPageValue; You can use one or more key/value pairs to make things dynamic (e.g. url, header, body or filter)  .For example if you have pagination in your API and First URL is http://abc.com/api/items/get and to get more records you have to call http://abc.com/api/items/getNext then you can use [$tag$] as placeholder in the URL http://abc.com/api/items/[$tag$] and specify this property with first page tag and next page tag as url=get|getNext  (Tags are separated using vertical bar). "
+                      expressionType="Notify"
+                      name="PagePlaceholders"></property>
+                    <property
+                      dataType="System.String"
+                      description="Use this property to set request body fragment for first page. HasDifferentNextPageInfo must be set to true to use this property."
+                      expressionType="Notify"
+                      name="FirstPageBodyPart"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.String"
+                      description="Use this property to set request body fragment for any request after first request. HasDifferentNextPageInfo must be set to true to use this property."
+                      expressionType="Notify"
+                      name="NextPageBodyPart"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.String"
+                      description="Expression to extract Maximum pages to loop through. Some APIs don't stop pagination and keep returning last page data when you try to read data after last page. Specify expression (e.g. $.page_count ) to read total pages to loop through using this property."
+                      expressionType="Notify"
+                      name="PagingMaxPagesExpr"></property>
+                    <property
+                      dataType="System.String"
+                      description="Expression to extract Maximum records to loop through. Some APIs don't stop pagination and keep returning last page data when you try to read data after last page. Specify expression (e.g. $.total_rows ) to read total pages to loop through using this property. This setting is ignored if you set PagingMaxPagesExpr."
+                      expressionType="Notify"
+                      name="PagingMaxRowsExpr"></property>
+                    <property
+                      dataType="System.String"
+                      description="When you enable PagingMaxRowsExpr (end pagination based on MaxRowCount) then you need to count records coming in each response. This expression extract all rows found under specified expression (e.g. $.orders[*] if all records found under orders node)."
+                      expressionType="Notify"
+                      name="PagingMaxRowsDataPathExpr"></property>
+                    <property
+                      dataType="System.String"
+                      description="e.g. Type page_num if URL looks like this =&gt; http://abc.com/?page_num=1&amp;sort=true  (page number via query string)&#xA;--or-- Type &lt;%page%&gt; if page number is inside URL path like this =&gt; http://abc.com/1/?sort=true  (e.g. replace page number in url with placeholder http://abc.com/&lt;%page%&gt;/?sort=true)&#xA;Page number will be incremented by one for next URL until last page is reached or [Max Page Number] is reached"
+                      expressionType="Notify"
+                      name="PageNumberAttributeNameInUrl"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum page number until which auto increment is allowed. Type zero for no limit. Next URL contains next page number (increment by one) until last page is detected or [Max Page Number] limit is reached."
+                      expressionType="Notify"
+                      name="MaxPageNumber">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Variable name which will hold starting page number. This is ignored if you useing parameter name from query string to indicate page number."
+                      expressionType="Notify"
+                      name="StartPageNumberVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Page counter increment. By default next page is incremented by one if this value is zero. You can also enter negative number if you want to decrease page counter."
+                      expressionType="Notify"
+                      name="PageNumberIncrement">1</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specified how you want detect last page."
+                      expressionType="Notify"
+                      name="PagingEndStrategy"
+                      typeConverter="ZappySys.Common.UrlPagingEndDetectionStrategy">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Condition result to compare to detect last page. Set this property to True if you want detect last page if condition is true else set this to False."
+                      expressionType="Notify"
+                      name="LastPageWhenConditionEqualsTo">true</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Minimum bytes expected from response."
+                      expressionType="Notify"
+                      name="ResponseMinBytes">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum bytes from response."
+                      expressionType="Notify"
+                      name="ResponseMaxBytes">3</property>
+                    <property
+                      dataType="System.String"
+                      description="Expected error message sub string from response."
+                      expressionType="Notify"
+                      name="ResponseErrorString">not found</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Expected status code from response when page number you trying to access not found."
+                      expressionType="Notify"
+                      name="ResponseStatusCode">404</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum JSON records to fetch. Set this value to 0 for all records"
+                      expressionType="Notify"
+                      name="MaxRows">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Compression format for source file (e.g. gzip, zip)"
+                      expressionType="Notify"
+                      name="FileCompressionType"
+                      typeConverter="ZappySys.Common.FileCompressionType">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies how custom date formatted strings are parsed when reading JSON."
+                      expressionType="Notify"
+                      name="DateFormatString"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies how date formatted strings, e.g. Date(1198908717056) and 2012-03-21T05:40Z, are parsed when reading JSON."
+                      expressionType="Notify"
+                      name="DateParseHandling"
+                      typeConverter="ZappySys.Common.DateParseHandling">1</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set this option to true if you want to output FilePath. This option is ignored when you consume DirectValue or data from Url rather than local files. Output column name will be __FilePath"
+                      expressionType="Notify"
+                      name="OutputFilePath">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set this option to true if you want to output FileName. This option is ignored when you consume DirectValue or data from Url rather than local files. Output column name will be __FileName"
+                      expressionType="Notify"
+                      name="OutputFileName">true</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Set this option to true if you want to move processed file to archive folder."
+                      expressionType="Notify"
+                      name="EnableArchiveFile">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Folder path where you want to move processed file."
+                      expressionType="Notify"
+                      name="ArchiveFolderPath"></property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Folder path where you want to move processed file."
+                      expressionType="Notify"
+                      name="OverwriteFileInArchiveFolder">false</property>
+                    <property
+                      dataType="System.String"
+                      description="File naming convention for archived file. By default it will same name as original source file processed. But you can control naming format using {%name%} and {%ext%} placeholders. e.g. {%name%}_processed{%ext%} or {%name%}{%ext%}.{{System::ContainerStartTime,yyyyMMdd_HHmmss_fff}}"
+                      expressionType="Notify"
+                      name="ArchiveFileNamingConvention"></property>
+                    <property
+                      dataType="System.Boolean"
+                      description="When this property is true then Column is converted to Row. Pivoted names will appear under  Pivot_Name column and values will appear under Pivot_Value field."
+                      expressionType="Notify"
+                      name="EnablePivot">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Metadata scan mode controls how data type and length is determined. By default few records scanned to determine datatype/length. Changing ScanMode affects length/datatype accuracy."
+                      expressionType="Notify"
+                      name="MetaDataScanMode"
+                      typeConverter="ZappySys.Common.Data.MetaDataScanMode">4</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Length for all string column. This option is only valid for MetaDataScanMode=Custom"
+                      expressionType="Notify"
+                      name="MetaDataCustomLength">1000</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">ZappySys.CsvSource</property>
+                    <property
+                      dataType="System.Boolean"
+                      name="EnableCustomReplace">false</property>
+                    <property
+                      dataType="System.String"
+                      name="SearchFor"></property>
+                    <property
+                      dataType="System.String"
+                      name="ReplaceWith"></property>
+                    <property
+                      dataType="System.Boolean"
+                      name="EnableMultiPathMode">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsMultiPartUpload">false</property>
+                    <property
+                      dataType="System.Int32"
+                      name="FloatParseHandling">0</property>
+                    <property
+                      dataType="System.Boolean"
+                      name="MetaDataTreatStringAsAscii">false</property>
+                  </properties>
+                  <outputs>
+                    <output
+                      refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput]"
+                      errorOrTruncationOperation="Error"
+                      errorRowDisposition="FailComponent"
+                      name="CsvSourceOutput"
+                      truncationRowDisposition="FailComponent">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].Columns[meme_ck]"
+                          dataType="i8"
+                          externalMetadataColumnId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].ExternalColumns[meme_ck]"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].Columns[meme_ck]"
+                          name="meme_ck" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].Columns[effdate]"
+                          dataType="i8"
+                          externalMetadataColumnId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].ExternalColumns[effdate]"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].Columns[effdate]"
+                          name="effdate" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].Columns[enrollment_source]"
+                          dataType="wstr"
+                          externalMetadataColumnId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].ExternalColumns[enrollment_source]"
+                          length="80"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].Columns[enrollment_source]"
+                          name="enrollment_source" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].Columns[enrollment_channel]"
+                          dataType="wstr"
+                          externalMetadataColumnId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].ExternalColumns[enrollment_channel]"
+                          length="80"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].Columns[enrollment_channel]"
+                          name="enrollment_channel" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].Columns[application_origin_desc]"
+                          dataType="wstr"
+                          externalMetadataColumnId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].ExternalColumns[application_origin_desc]"
+                          length="112"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].Columns[application_origin_desc]"
+                          name="application_origin_desc" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].Columns[dtc]"
+                          dataType="wstr"
+                          externalMetadataColumnId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].ExternalColumns[dtc]"
+                          length="4"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].Columns[dtc]"
+                          name="dtc" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].ExternalColumns[meme_ck]"
+                          dataType="i8"
+                          name="meme_ck" />
+                        <externalMetadataColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].ExternalColumns[effdate]"
+                          dataType="i8"
+                          name="effdate" />
+                        <externalMetadataColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].ExternalColumns[enrollment_source]"
+                          dataType="wstr"
+                          length="80"
+                          name="enrollment_source" />
+                        <externalMetadataColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].ExternalColumns[enrollment_channel]"
+                          dataType="wstr"
+                          length="80"
+                          name="enrollment_channel" />
+                        <externalMetadataColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].ExternalColumns[application_origin_desc]"
+                          dataType="wstr"
+                          length="112"
+                          name="application_origin_desc" />
+                        <externalMetadataColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].ExternalColumns[dtc]"
+                          dataType="wstr"
+                          length="4"
+                          name="dtc" />
+                        <externalMetadataColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].ExternalColumns[__FileName]"
+                          dataType="wstr"
+                          length="600"
+                          name="__FileName" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSource Error Output]"
+                      isErrorOut="true"
+                      name="CsvSource Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSource Error Output].Columns[meme_ck]"
+                          dataType="i8"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSource Error Output].Columns[meme_ck]"
+                          name="meme_ck" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSource Error Output].Columns[effdate]"
+                          dataType="i8"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSource Error Output].Columns[effdate]"
+                          name="effdate" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSource Error Output].Columns[enrollment_source]"
+                          dataType="wstr"
+                          length="80"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSource Error Output].Columns[enrollment_source]"
+                          name="enrollment_source" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSource Error Output].Columns[enrollment_channel]"
+                          dataType="wstr"
+                          length="80"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSource Error Output].Columns[enrollment_channel]"
+                          name="enrollment_channel" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSource Error Output].Columns[application_origin_desc]"
+                          dataType="wstr"
+                          length="112"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSource Error Output].Columns[application_origin_desc]"
+                          name="application_origin_desc" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSource Error Output].Columns[dtc]"
+                          dataType="wstr"
+                          length="4"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSource Error Output].Columns[dtc]"
+                          name="dtc" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSource Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSource Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSource Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSource Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSource Error Output].Columns[ErrorColumnName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="128"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSource Error Output].Columns[ErrorColumnName]"
+                          name="ErrorColumnName" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSource Error Output].Columns[ErrorMessage]"
+                          dataType="wstr"
+                          length="1024"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSource Error Output].Columns[ErrorMessage]"
+                          name="ErrorMessage" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion"
+                  componentClassID="Microsoft.DataConvert"
+                  contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Data Conversion"
+                  name="Data Conversion"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion.Inputs[Data Conversion Input]"
+                      name="Data Conversion Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion.Inputs[Data Conversion Input].Columns[enrollment_source]"
+                          cachedDataType="wstr"
+                          cachedLength="80"
+                          cachedName="enrollment_source"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].Columns[enrollment_source]" />
+                        <inputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion.Inputs[Data Conversion Input].Columns[enrollment_channel]"
+                          cachedDataType="wstr"
+                          cachedLength="80"
+                          cachedName="enrollment_channel"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].Columns[enrollment_channel]" />
+                        <inputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion.Inputs[Data Conversion Input].Columns[application_origin_desc]"
+                          cachedDataType="wstr"
+                          cachedLength="112"
+                          cachedName="application_origin_desc"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].Columns[application_origin_desc]" />
+                        <inputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion.Inputs[Data Conversion Input].Columns[dtc]"
+                          cachedDataType="wstr"
+                          cachedLength="4"
+                          cachedName="dtc"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].Columns[dtc]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion.Outputs[Data Conversion Output]"
+                      exclusionGroup="1"
+                      name="Data Conversion Output"
+                      synchronousInputId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion.Inputs[Data Conversion Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of enrollment_source]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          length="100"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of enrollment_source]"
+                          name="Copy of enrollment_source"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the input column used as the source of data for the conversion."
+                              name="SourceInputColumnLineageID">#{Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].Columns[enrollment_source]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of enrollment_channel]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          length="100"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of enrollment_channel]"
+                          name="Copy of enrollment_channel"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the input column used as the source of data for the conversion."
+                              name="SourceInputColumnLineageID">#{Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].Columns[enrollment_channel]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of application_origin_desc]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          length="150"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of application_origin_desc]"
+                          name="Copy of application_origin_desc"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the input column used as the source of data for the conversion."
+                              name="SourceInputColumnLineageID">#{Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].Columns[application_origin_desc]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of dtc]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          length="1"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of dtc]"
+                          name="Copy of dtc"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the input column used as the source of data for the conversion."
+                              name="SourceInputColumnLineageID">#{Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].Columns[dtc]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion.Outputs[Data Conversion Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Data Conversion Error Output"
+                      synchronousInputId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion.Inputs[Data Conversion Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DB Destination"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[IEX].[STG_IFP_AppOriginDesc]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[ODW]"
+                      connectionManagerRefId="Package.ConnectionManagers[ODW]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[meme_ck]"
+                          cachedDataType="i8"
+                          cachedName="meme_ck"
+                          externalMetadataColumnId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[meme_ck]"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].Columns[meme_ck]" />
+                        <inputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[effdate]"
+                          cachedDataType="i8"
+                          cachedName="effdate"
+                          externalMetadataColumnId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[effdate]"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput].Columns[effdate]" />
+                        <inputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of enrollment_source]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="Copy of enrollment_source"
+                          externalMetadataColumnId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[enrollment_source]"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of enrollment_source]" />
+                        <inputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of enrollment_channel]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="Copy of enrollment_channel"
+                          externalMetadataColumnId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[enrollment_channel]"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of enrollment_channel]" />
+                        <inputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of application_origin_desc]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="150"
+                          cachedName="Copy of application_origin_desc"
+                          externalMetadataColumnId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[application_origin_desc]"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of application_origin_desc]" />
+                        <inputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of dtc]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="Copy of dtc"
+                          externalMetadataColumnId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DTC]"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of dtc]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[meme_ck]"
+                          dataType="i4"
+                          name="meme_ck" />
+                        <externalMetadataColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[effdate]"
+                          dataType="i4"
+                          name="effdate" />
+                        <externalMetadataColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[enrollment_source]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="enrollment_source" />
+                        <externalMetadataColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[enrollment_channel]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="enrollment_channel" />
+                        <externalMetadataColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[application_origin_desc]"
+                          codePage="1252"
+                          dataType="str"
+                          length="150"
+                          name="application_origin_desc" />
+                        <externalMetadataColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ApplicationID]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="ApplicationID" />
+                        <externalMetadataColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DTC]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="DTC" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc.Paths[CsvSourceOutput]"
+                  endId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion.Inputs[Data Conversion Input]"
+                  name="CsvSourceOutput"
+                  startId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File).Outputs[CsvSourceOutput]" />
+                <path
+                  refId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc.Paths[Data Conversion Output]"
+                  endId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  name="Data Conversion Output"
+                  startId="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion.Outputs[Data Conversion Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\FELC_Mktg_AppOriginDesc\Purge AppOriginDesc source files"
+          DTS:CreationName="ZappySys.FileOperationTask"
+          DTS:Description="ZS Advanced File System Task"
+          DTS:DTSID="{C5BEDFB1-ED5C-4C4F-95B1-B25103165F3A}"
+          DTS:ExecutableType="ZappySys.FileOperationTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Purge AppOriginDesc source files"
+          DTS:TaskContact="Advanced File System Task; ZappySys LLC (c) All Rights Reserved; SSIS PowerPack; http://www.zappysys.com/support"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <FileOperationTask
+              Action="DeleteFile"
+              Permission="Default"
+              SearchString=""
+              ReplaceString=""
+              Encoding="UTF8"
+              SearchMode="Normal"
+              SearchIgnoreCase="False"
+              SourcePathAccessMode="Variable"
+              SourcePathValue=""
+              SourcePathConnection=""
+              SourcePathVariable="User::vFilePath"
+              Recursive="False"
+              ResultVariable=""
+              TargetPathAccessMode="Direct"
+              TargetPathValue=""
+              TargetPathConnection=""
+              TargetPathVariable=""
+              OverWriteOption="AlwaysOverwrite"
+              CreateMissingTargetFolder="True"
+              ContinueOnError="False"
+              ExcludeRegXPattern=""
+              IncludeRegXPattern=""
+              TreatRegXForFullPath="True"
+              SortBy="Size"
+              SortDirection="Asc"
+              WhereClause=""
+              EnableSort="False"
+              MaxItems="0"
+              LogLevel="Normal"
+              PrefixTimestamp="False" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\FELC_Mktg_AppOriginDesc\Remove Dups"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{6CA94697-F37B-48B5-8FDE-BA5A6A07FDED}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Remove Dups"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{3FAA0715-2B3D-4BB8-856F-0575E8EFC1B6}"
+              SQLTask:SqlStatementSource="-- DELETE STG_IFP_AppOriginDesc (IEX)&#xA;DELETE A&#xA;FROM IEX.STG_IFP_AppOriginDesc A&#xA;JOIN (SELECT APPLICATIONID, COUNT(ApplicationID) AS AppCount&#xA;      FROM IEX.STG_IFP_AppOriginDesc&#xA;     GROUP BY APPLICATIONID&#xA;     HAVING COUNT(APPLICATIONID) &gt; 1&#xA;&#x9; ) B &#xA;ON A.APPLICATIONID = B.ApplicationID" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\FELC_Mktg_AppOriginDesc\Truncate STG table"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{1AC3A55B-3AC3-47A6-BCD6-D031F21186C4}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate STG table"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{3FAA0715-2B3D-4BB8-856F-0575E8EFC1B6}"
+              SQLTask:SqlStatementSource="EXEC dbo.usp_TruncateTable 'IEX', 'STG_IFP_AppOriginDesc'&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{FA74F3BF-C455-4238-8B81-6198053A5EEB}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Upsert STG to BASE"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="Pull from STG"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[IEX].[STG_IFP_AppOriginDesc]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[ODW]"
+                      connectionManagerRefId="Package.ConnectionManagers[ODW]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].Columns[ApplicationID]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].ExternalColumns[ApplicationID]"
+                          length="100"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].Columns[ApplicationID]"
+                          name="ApplicationID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].Columns[meme_ck]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].ExternalColumns[meme_ck]"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].Columns[meme_ck]"
+                          name="meme_ck"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].Columns[effdate]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].ExternalColumns[effdate]"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].Columns[effdate]"
+                          name="effdate"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].Columns[enrollment_source]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].ExternalColumns[enrollment_source]"
+                          length="100"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].Columns[enrollment_source]"
+                          name="enrollment_source"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].Columns[enrollment_channel]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].ExternalColumns[enrollment_channel]"
+                          length="100"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].Columns[enrollment_channel]"
+                          name="enrollment_channel"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].Columns[application_origin_desc]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].ExternalColumns[application_origin_desc]"
+                          length="150"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].Columns[application_origin_desc]"
+                          name="application_origin_desc"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].Columns[DTC]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].ExternalColumns[DTC]"
+                          length="1"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].Columns[DTC]"
+                          name="DTC"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].ExternalColumns[ApplicationID]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="ApplicationID" />
+                        <externalMetadataColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].ExternalColumns[meme_ck]"
+                          dataType="i4"
+                          name="meme_ck" />
+                        <externalMetadataColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].ExternalColumns[effdate]"
+                          dataType="i4"
+                          name="effdate" />
+                        <externalMetadataColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].ExternalColumns[enrollment_source]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="enrollment_source" />
+                        <externalMetadataColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].ExternalColumns[enrollment_channel]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="enrollment_channel" />
+                        <externalMetadataColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].ExternalColumns[application_origin_desc]"
+                          codePage="1252"
+                          dataType="str"
+                          length="150"
+                          name="application_origin_desc" />
+                        <externalMetadataColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].ExternalColumns[DTC]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="DTC" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Error Output].Columns[ApplicationID]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Error Output].Columns[ApplicationID]"
+                          name="ApplicationID" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Error Output].Columns[meme_ck]"
+                          dataType="i4"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Error Output].Columns[meme_ck]"
+                          name="meme_ck" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Error Output].Columns[effdate]"
+                          dataType="i4"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Error Output].Columns[effdate]"
+                          name="effdate" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Error Output].Columns[enrollment_source]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Error Output].Columns[enrollment_source]"
+                          name="enrollment_source" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Error Output].Columns[enrollment_channel]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Error Output].Columns[enrollment_channel]"
+                          name="enrollment_channel" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Error Output].Columns[application_origin_desc]"
+                          codePage="1252"
+                          dataType="str"
+                          length="150"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Error Output].Columns[application_origin_desc]"
+                          name="application_origin_desc" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Error Output].Columns[DTC]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Error Output].Columns[DTC]"
+                          name="DTC" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc"
+                  componentClassID="Microsoft.ManagedComponentHost"
+                  contactInfo="Upsert Destination (Insert, Update, Delete); ZappySys LLC (c) All Rights Reserved; SSIS PowerPack; http://www.zappysys.com/support"
+                  description="Upsert destination can be used for bulk insert / update / delete (i.e. Merge) based on matching source and target records in MS SQL Server, PostgreSql, Amazon Redshift database."
+                  name="Update ref_IFP_AppOriginDesc"
+                  usesDispositions="true"
+                  version="2">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="LoggingMode determines how much information is logged during Package Execution. Set Logging mode to Debugging for maximum log."
+                      expressionType="Notify"
+                      name="LoggingMode"
+                      typeConverter="ZappySys.PowerPack.Common.LoggingMode">0</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="When you enable this property it will prefix timestamp before Log messages."
+                      expressionType="Notify"
+                      name="PrefixTimestamp">false</property>
+                    <property
+                      dataType="System.Null"
+                      expressionType="Notify"
+                      name="SelfRef"
+                      typeConverter="NOTBROWSABLE" />
+                    <property
+                      dataType="System.Boolean"
+                      description="Enable / Disable Response Output. Checking this option can remove unwanted warnings about unused Columns and many times speedup performance so if output is not needed set this option to True so its removed."
+                      name="DoNotCreateOutputs">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Target table name where you like insert, update or delete records"
+                      expressionType="Notify"
+                      name="TableName"
+                      typeConverter="ZappySys.PowerPack.Converters.TableEditor,ZappySys.PowerPack110.UI,Version=1.0.0.0,Culture=neutral,PublicKeyToken=1903265a93eae502">[IEX].[ref_IFP_AppOriginDesc]</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Commit batch size (0=Commit once all source rows are consumed). You can Change Batch Size to commit in smaller chunks too if error handling needed."
+                      expressionType="Notify"
+                      name="BatchSize">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Action you like to perform (e.g. Upsert, Insert, Update, Delete or Sync)"
+                      expressionType="Notify"
+                      name="Action"
+                      typeConverter="ZappySys.Common.Data.MergeMode">0</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="INSERT source rows to target if they don't exist in target table (Only for Sync or Upsert Action)"
+                      expressionType="Notify"
+                      name="EnableInsert">true</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="UPDATE source rows to target if they exist in target table (Only for Sync or Upsert Action)"
+                      expressionType="Notify"
+                      name="EnableUpdate">true</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="DELETE target rows if missing in source (Only for Sync or Upsert Action)"
+                      expressionType="Notify"
+                      name="EnableDelete">false</property>
+                    <property
+                      dataType="System.String"
+                      description="User defined Temp table to hold source result before final merge. This table is truncated before each data load. Unlike auto temp table, custom temp table is not dropped after process is finished."
+                      expressionType="Notify"
+                      name="CustomTempTableName"></property>
+                    <property
+                      dataType="System.String"
+                      description="SQL command you like to execute before starting load in target table (e.g. DROP INDEX on target). Along with variable placeholders, you can also use special placeholders [%target_table%], [%temp_table%] and [%target_keys%]"
+                      expressionType="Notify"
+                      name="PreExecuteCommand"></property>
+                    <property
+                      dataType="System.String"
+                      description="SQL command you like to execute at the end once target table is update (e.g. REBUILD or CREATE INDEX on target table). Along with variable placeholders, you can also use special placeholders [%target_table%], [%temp_table%] and [%target_keys%]"
+                      expressionType="Notify"
+                      name="PostExecuteCommand"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies what to do if you encounter duplicate records in source data. You can use first row in the group or keep last row or throw error."
+                      expressionType="Notify"
+                      name="DuplicateRemovalMode"
+                      typeConverter="ZappySys.Common.Data.DuplicateRemovalMode">1</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">ZappySys.UpsertDestination</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Connections[DB-CONNECTION]"
+                      connectionManagerID="Package.ConnectionManagers[ODW_ADO]"
+                      connectionManagerRefId="Package.ConnectionManagers[ODW_ADO]"
+                      description="Connection for this component"
+                      name="DB-CONNECTION" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Inputs[UpsertDestinationInput]"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="UpsertDestinationInput"
+                      truncationRowDisposition="FailComponent">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Inputs[UpsertDestinationInput].Columns[ApplicationID]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="ApplicationID"
+                          externalMetadataColumnId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Inputs[UpsertDestinationInput].ExternalColumns[ApplicationID]"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].Columns[ApplicationID]"
+                          name="ApplicationID" />
+                        <inputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Inputs[UpsertDestinationInput].Columns[meme_ck]"
+                          cachedDataType="i4"
+                          cachedName="meme_ck"
+                          externalMetadataColumnId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Inputs[UpsertDestinationInput].ExternalColumns[meme_ck]"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].Columns[meme_ck]"
+                          name="meme_ck" />
+                        <inputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Inputs[UpsertDestinationInput].Columns[effdate]"
+                          cachedDataType="i4"
+                          cachedName="effdate"
+                          externalMetadataColumnId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Inputs[UpsertDestinationInput].ExternalColumns[effdate]"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].Columns[effdate]"
+                          name="effdate" />
+                        <inputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Inputs[UpsertDestinationInput].Columns[enrollment_source]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="enrollment_source"
+                          externalMetadataColumnId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Inputs[UpsertDestinationInput].ExternalColumns[enrollment_source]"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].Columns[enrollment_source]"
+                          name="enrollment_source" />
+                        <inputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Inputs[UpsertDestinationInput].Columns[enrollment_channel]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="enrollment_channel"
+                          externalMetadataColumnId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Inputs[UpsertDestinationInput].ExternalColumns[enrollment_channel]"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].Columns[enrollment_channel]"
+                          name="enrollment_channel" />
+                        <inputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Inputs[UpsertDestinationInput].Columns[application_origin_desc]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="150"
+                          cachedName="application_origin_desc"
+                          externalMetadataColumnId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Inputs[UpsertDestinationInput].ExternalColumns[application_origin_desc]"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].Columns[application_origin_desc]"
+                          name="application_origin_desc" />
+                        <inputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Inputs[UpsertDestinationInput].Columns[DTC]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="DTC"
+                          externalMetadataColumnId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Inputs[UpsertDestinationInput].ExternalColumns[DTC]"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output].Columns[DTC]"
+                          name="DTC" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Inputs[UpsertDestinationInput].ExternalColumns[ApplicationID]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="ApplicationID">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Primary Key Column for this table"
+                              expressionType="Notify"
+                              name="IsKey">true</property>
+                          </properties>
+                        </externalMetadataColumn>
+                        <externalMetadataColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Inputs[UpsertDestinationInput].ExternalColumns[meme_ck]"
+                          dataType="i4"
+                          name="meme_ck" />
+                        <externalMetadataColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Inputs[UpsertDestinationInput].ExternalColumns[effdate]"
+                          dataType="i4"
+                          name="effdate" />
+                        <externalMetadataColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Inputs[UpsertDestinationInput].ExternalColumns[enrollment_source]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="enrollment_source" />
+                        <externalMetadataColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Inputs[UpsertDestinationInput].ExternalColumns[enrollment_channel]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="enrollment_channel" />
+                        <externalMetadataColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Inputs[UpsertDestinationInput].ExternalColumns[application_origin_desc]"
+                          codePage="1252"
+                          dataType="str"
+                          length="150"
+                          name="application_origin_desc" />
+                        <externalMetadataColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Inputs[UpsertDestinationInput].ExternalColumns[DTC]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="DTC" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[UpsertDestination Error Output]"
+                      isErrorOut="true"
+                      name="UpsertDestination Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[UpsertDestination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[UpsertDestination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[UpsertDestination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[UpsertDestination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[UpsertDestination Error Output].Columns[ErrorColumnName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="128"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[UpsertDestination Error Output].Columns[ErrorColumnName]"
+                          name="ErrorColumnName" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[UpsertDestination Error Output].Columns[ErrorMessage]"
+                          dataType="wstr"
+                          length="1024"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[UpsertDestination Error Output].Columns[ErrorMessage]"
+                          name="ErrorMessage" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[UpsertDestination Error Output].Columns[ApplicationID]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[UpsertDestination Error Output].Columns[ApplicationID]"
+                          name="ApplicationID" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[UpsertDestination Error Output].Columns[meme_ck]"
+                          dataType="i4"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[UpsertDestination Error Output].Columns[meme_ck]"
+                          name="meme_ck" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[UpsertDestination Error Output].Columns[effdate]"
+                          dataType="i4"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[UpsertDestination Error Output].Columns[effdate]"
+                          name="effdate" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[UpsertDestination Error Output].Columns[enrollment_source]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[UpsertDestination Error Output].Columns[enrollment_source]"
+                          name="enrollment_source" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[UpsertDestination Error Output].Columns[enrollment_channel]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[UpsertDestination Error Output].Columns[enrollment_channel]"
+                          name="enrollment_channel" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[UpsertDestination Error Output].Columns[application_origin_desc]"
+                          codePage="1252"
+                          dataType="str"
+                          length="150"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[UpsertDestination Error Output].Columns[application_origin_desc]"
+                          name="application_origin_desc" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[UpsertDestination Error Output].Columns[DTC]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[UpsertDestination Error Output].Columns[DTC]"
+                          name="DTC" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[New Records Output]"
+                      name="New Records Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[New Records Output].Columns[ApplicationID]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[New Records Output].Columns[ApplicationID]"
+                          name="ApplicationID" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[New Records Output].Columns[meme_ck]"
+                          dataType="i4"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[New Records Output].Columns[meme_ck]"
+                          name="meme_ck" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[New Records Output].Columns[effdate]"
+                          dataType="i4"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[New Records Output].Columns[effdate]"
+                          name="effdate" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[New Records Output].Columns[enrollment_source]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[New Records Output].Columns[enrollment_source]"
+                          name="enrollment_source" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[New Records Output].Columns[enrollment_channel]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[New Records Output].Columns[enrollment_channel]"
+                          name="enrollment_channel" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[New Records Output].Columns[application_origin_desc]"
+                          codePage="1252"
+                          dataType="str"
+                          length="150"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[New Records Output].Columns[application_origin_desc]"
+                          name="application_origin_desc" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[New Records Output].Columns[DTC]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[New Records Output].Columns[DTC]"
+                          name="DTC" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[Updated Records Output]"
+                      name="Updated Records Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[Updated Records Output].Columns[ApplicationID]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[Updated Records Output].Columns[ApplicationID]"
+                          name="ApplicationID" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[Updated Records Output].Columns[meme_ck]"
+                          dataType="i4"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[Updated Records Output].Columns[meme_ck]"
+                          name="meme_ck" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[Updated Records Output].Columns[effdate]"
+                          dataType="i4"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[Updated Records Output].Columns[effdate]"
+                          name="effdate" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[Updated Records Output].Columns[enrollment_source]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[Updated Records Output].Columns[enrollment_source]"
+                          name="enrollment_source" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[Updated Records Output].Columns[enrollment_channel]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[Updated Records Output].Columns[enrollment_channel]"
+                          name="enrollment_channel" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[Updated Records Output].Columns[application_origin_desc]"
+                          codePage="1252"
+                          dataType="str"
+                          length="150"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[Updated Records Output].Columns[application_origin_desc]"
+                          name="application_origin_desc" />
+                        <outputColumn
+                          refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[Updated Records Output].Columns[DTC]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Outputs[Updated Records Output].Columns[DTC]"
+                          name="DTC" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE.Paths[OLE DB Source Output]"
+                  endId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc.Inputs[UpsertDestinationInput]"
+                  name="OLE DB Source Output"
+                  startId="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\FELC_Mktg_AppOriginDesc.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{10D519C9-D332-4B5F-9A54-2757885A1213}"
+          DTS:From="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\FELC_Mktg_AppOriginDesc\Derive App ID" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\FELC_Mktg_AppOriginDesc.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{2AA41CFC-59CA-49E5-BE5F-0330A735277F}"
+          DTS:From="Package\FELC_Mktg_AppOriginDesc\Truncate STG table"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\FELC_Mktg_AppOriginDesc.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{89932B69-51C0-4249-B34B-B2137FB52916}"
+          DTS:From="Package\FELC_Mktg_AppOriginDesc\Derive App ID"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\FELC_Mktg_AppOriginDesc\Remove Dups" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\FELC_Mktg_AppOriginDesc.PrecedenceConstraints[Constraint 3]"
+          DTS:CreationName=""
+          DTS:DTSID="{48BA2A7E-E6F6-4264-8A61-1BBCD2979E06}"
+          DTS:From="Package\FELC_Mktg_AppOriginDesc\Remove Dups"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 3"
+          DTS:To="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\FELC_Mktg_AppOriginDesc.PrecedenceConstraints[Constraint 4]"
+          DTS:CreationName=""
+          DTS:DTSID="{F80F2E3F-5BCE-4744-9F73-E79C7FE1FBB8}"
+          DTS:From="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 4"
+          DTS:To="Package\FELC_Mktg_AppOriginDesc\Archive AppOriginDesc Files" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\FELC_Mktg_AppOriginDesc.PrecedenceConstraints[Constraint 5]"
+          DTS:CreationName=""
+          DTS:DTSID="{763D21EA-EC1C-43A1-87E2-2ADA06772722}"
+          DTS:From="Package\FELC_Mktg_AppOriginDesc\Archive AppOriginDesc Files"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 5"
+          DTS:To="Package\FELC_Mktg_AppOriginDesc\Purge AppOriginDesc source files" />
+      </DTS:PrecedenceConstraints>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{21A92BC3-65AD-4159-B125-DFD339F92B78}"
+          DTS:ObjectName="{21A92BC3-65AD-4159-B125-DFD339F92B78}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::vFileName" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="210,42"
+          Id="Package\FELC_Mktg_AppOriginDesc\Archive AppOriginDesc Files"
+          TopLeft="44,426" />
+        <NodeLayout
+          Size="145,42"
+          Id="Package\FELC_Mktg_AppOriginDesc\Derive App ID"
+          TopLeft="64,174" />
+        <NodeLayout
+          Size="211,42"
+          Id="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc"
+          TopLeft="37,89" />
+        <NodeLayout
+          Size="235,42"
+          Id="Package\FELC_Mktg_AppOriginDesc\Purge AppOriginDesc source files"
+          TopLeft="37,507" />
+        <NodeLayout
+          Size="144,42"
+          Id="Package\FELC_Mktg_AppOriginDesc\Remove Dups"
+          TopLeft="62,255" />
+        <NodeLayout
+          Size="170,42"
+          Id="Package\FELC_Mktg_AppOriginDesc\Truncate STG table"
+          TopLeft="54,19" />
+        <NodeLayout
+          Size="173,42"
+          Id="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE"
+          TopLeft="55,341" />
+        <EdgeLayout
+          Id="Package\FELC_Mktg_AppOriginDesc.PrecedenceConstraints[Constraint]"
+          TopLeft="139.5,131">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,43"
+              Start="0,0"
+              End="0,35.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\FELC_Mktg_AppOriginDesc.PrecedenceConstraints[Constraint 1]"
+          TopLeft="140.75,61">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,28"
+              Start="0,0"
+              End="0,20.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\FELC_Mktg_AppOriginDesc.PrecedenceConstraints[Constraint 2]"
+          TopLeft="135.25,216">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,39"
+              Start="0,0"
+              End="0,31.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\FELC_Mktg_AppOriginDesc.PrecedenceConstraints[Constraint 3]"
+          TopLeft="137.75,297">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,44"
+              Start="0,0"
+              End="0,36.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\FELC_Mktg_AppOriginDesc.PrecedenceConstraints[Constraint 4]"
+          TopLeft="145.25,383">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,43"
+              Start="0,0"
+              End="0,35.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\FELC_Mktg_AppOriginDesc.PrecedenceConstraints[Constraint 5]"
+          TopLeft="151.75,468">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,39"
+              Start="0,0"
+              End="0,31.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="293,600"
+          Size="293,643"
+          Id="Package\FELC_Mktg_AppOriginDesc"
+          TopLeft="334,18" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="171,42"
+          Id="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination"
+          TopLeft="387,295" />
+        <NodeLayout
+          Size="218,42"
+          Id="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\CSV Source (Web API or File)"
+          TopLeft="370,107" />
+        <NodeLayout
+          Size="156,42"
+          Id="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\Data Conversion"
+          TopLeft="542,188" />
+        <EdgeLayout
+          Id="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc.Paths[Data Conversion Output]"
+          TopLeft="620,230">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-147.5,65"
+              Start="0,0"
+              End="-147.5,57.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,28.5"
+                    Point2="0,32.5"
+                    Point3="-4,32.5" />
+                  <mssgle:LineSegment
+                    End="-143.5,32.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-143.5,32.5"
+                    Point2="-147.5,32.5"
+                    Point3="-147.5,36.5" />
+                  <mssgle:LineSegment
+                    End="-147.5,57.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc.Paths[CsvSourceOutput]"
+          TopLeft="479,149">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="141,39"
+              Start="0,0"
+              End="141,31.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,15.5"
+                    Point2="0,19.5"
+                    Point3="4,19.5" />
+                  <mssgle:LineSegment
+                    End="137,19.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="137,19.5"
+                    Point2="141,19.5"
+                    Point3="141,23.5" />
+                  <mssgle:LineSegment
+                    End="141,31.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\FELC_Mktg_AppOriginDesc\IFP_Application_Orgin_Desc\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="144,42"
+          Id="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG"
+          TopLeft="439,33" />
+        <NodeLayout
+          Size="225,42"
+          Id="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Update ref_IFP_AppOriginDesc"
+          TopLeft="397,241" />
+        <EdgeLayout
+          Id="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE.Paths[OLE DB Source Output]"
+          TopLeft="510.25,75">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,166"
+              Start="0,0"
+              End="0,158.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,158.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\FELC_Mktg_AppOriginDesc\Upsert STG to BASE\Pull from STG">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

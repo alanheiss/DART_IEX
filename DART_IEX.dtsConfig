@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<DTSConfiguration>
+	<DTSConfigurationHeading>
+		<DTSConfigurationFileInfo GeneratedBy="MS\aheiss" GeneratedFromPackageName="DART_IEX" GeneratedFromPackageID="{2572E83D-859F-433E-A1D7-D04D71754A4D}" GeneratedDate="6/30/2021 9:06:39 AM"/>
+	</DTSConfigurationHeading>
+	<Configuration ConfiguredType="Property" Path="\Package.Connections[CSP].Properties[Password]" ValueType="String">
+		<ConfiguredValue>je71qs3o8n</ConfiguredValue>
+	</Configuration>
+	<Configuration ConfiguredType="Property" Path="\Package.Connections[CSP_Oracle].Properties[Password]" ValueType="String">
+		<ConfiguredValue>je71qs3o8n</ConfiguredValue>
+	</Configuration>
+</DTSConfiguration>
